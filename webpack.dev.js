@@ -7,13 +7,26 @@ module.exports = {
     entry: './src/client/index.js',
     mode: 'development',
     devtool: 'source-map',
-    stats: 'verbose',
+    //stats: 'verbose',
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'distDev'),
+        compress: true,
+        port: 9000
+    },
     module: {
         rules: [
             {
                 test: '/\.js$/',
                 exclude: /node_modules/,
                 loader: "babel-loader"
+            },
+            {
+                test: /\.scss$/,
+                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             }
         ]
     },
